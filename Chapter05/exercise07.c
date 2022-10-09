@@ -12,15 +12,15 @@ int main(int argc, char *argv[])
 		exit(1);
 	} else if (rc == 0) {
 		// child (new process)
-		int w = wait(NULL);
-	 	printf("Child wait(): %d\n", w);
+		printf("Closing STDOUT_FILENO\n");
+		close(STDOUT_FILENO);
+		printf("Test\n");
     } else { 
 		// parent goes down this path (main)
-		int w = wait(NULL);
-	 	printf("Parent wait(): %d\n", w);
+		wait(NULL);
+	 	printf("Parent\n");
     }
     return 0;
 }
 
-// wait() gibt die processID des childs zurück (wen nFehler dann -1)
-// wird wait() im child aufgerufen, wird -1 (Fehler) zurückgegeben
+// child kann nicht mehr auf die Standardausgabe ausgeben wenn STDOUT_FILENO geclosed wurde
