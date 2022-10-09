@@ -4,6 +4,14 @@
 
 int main(int argc, char *argv[])
 {
+	int pipefd[2];
+
+	if (pipe(pipefd) == -1)
+	{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
+
 	int rc = fork();
 	if (rc < 0)
 	{
