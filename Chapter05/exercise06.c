@@ -16,13 +16,13 @@ int main(int argc, char *argv[])
 	 	printf("Child wait(): %d\n", w);
     } else { 
 		// parent goes down this path (main)
-		int w = waitpid(-1, NULL, 0);
+		int w = waitpid(rc, NULL, 0);
 	 	printf("Parent wait(): %d\n", w);
     }
     return 0;
 }
 
-// hier waitpid(-1, NULL, 0) macht genau das gleiche wie wait(NULL)
+// waitpid(-1, NULL, 0) macht genau das gleiche wie wait(NULL)
 // waitpid kann allerdings z.B. dazu verwendet werden auf ein child 
 // zu warten das eine bestimmte process ID oder process group ID hat
-// aktuell wird in Z. 16 auf irgendeinen child process gewartet (wie bei wait())
+// aktuell wird in Z. 16 auf child mit process ID rc gewartet
