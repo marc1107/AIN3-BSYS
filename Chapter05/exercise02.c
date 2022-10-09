@@ -1,10 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <string.h>
+#include <fcntl.h>
+#include <sys/wait.h>
 
 int main(int argc, char *argv[])
 {
-	int x = 100;
+	int fd = open("./testfile.txt", O_CREAT|O_WRONLY|O_TRUNC, S_IRWXU);
 	int rc = fork();
 	if (rc < 0)
 	{
@@ -13,17 +16,15 @@ int main(int argc, char *argv[])
 		exit(1);
 	} else if (rc == 0) {
 		// child (new process)
-	 	printf("x child: %d\n", x);
-		x = 20;
-	 	printf("x child after change: %d\n", x);
+	 	printf("file child: %d\n", fd);
+		write(fd, 1, 1);
     } else { 
 		// parent goes down this path (main)
-        printf("x parent: %d\n", x);
-		x = 300;
-        printf("x parent after change: %d\n", x);
+        printf("file parent: %d\n", fd);
+		write(fd, 1, 2);
     }
     return 0;
 }
 
-// Variable x hat im child process trotzdem noch den Wert 100,
-// obwohl im parent process x schon auf 300 gesetzt wurde
+// Ja, parent und child können beide auf den descriptor zugreifen
+// 
