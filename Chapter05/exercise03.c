@@ -17,15 +17,15 @@ int main(int argc, char *argv[])
 		exit(1);
 	} else if (rc == 0) {
 		// child (new process)
-	 	printf("hello\n");
+		printf("hello\n");
 		// SIGINT Signal an parent senden
 		kill(ppid, SIGINT);
-    } else { 
+	} else { 
 		// parent goes down this path (main)
 		signal(SIGINT, goodbye);
 		sleep(1);
-    }
-    return 0;
+	}
+	return 0;
 }
 
 void goodbye(int signal) {
