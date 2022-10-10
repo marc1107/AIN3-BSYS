@@ -8,6 +8,11 @@ int main(int argc, char *argv[])
 	pid_t cpid;
 	char buf;
 
+	if (argc < 2) {
+        fprintf(stderr, "Usage: %s <string>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
+
 	cpid = fork();
 	if (cpid < 0)
 	{
@@ -30,10 +35,11 @@ int main(int argc, char *argv[])
 			exit(1);
 		} else if (rc == 0) {
 			// second child
-			//printf("Child 2\n");
+			// printf("Child 2\n");
 
 			close(pipefd[1]);          /* Close unused write end */
 
+			printf("Read: %ld\n", read(pipefd[0], &buf, 1));
 			while (read(pipefd[0], &buf, 1) > 0)
             	write(STDOUT_FILENO, &buf, 1);
 
@@ -42,20 +48,19 @@ int main(int argc, char *argv[])
 			_exit(EXIT_SUCCESS);
 		} else {
 			// first child
-			//printf("Child 1\n");
+			// printf("Child 1\n");
 
 			close(pipefd[0]);          /* Close unused read end */
             write(pipefd[1], argv[1], strlen(argv[1]));
+			printf("Write erfolgreich\n");
             close(pipefd[1]);          /* Reader will see EOF */
             wait(NULL);                /* Wait for child */
             exit(EXIT_SUCCESS);
 		}
-    } else { 
+    } else {
 		// parent goes down this path (main)
-	 	//printf("Parent\n");
+		wait(NULL);
+	 	// printf("Parent\n");
     }
     return 0;
 }
-
-// wait() gibt die processID des childs zurück (wen nFehler dann -1)
-// wird wait() im child aufgerufen, wird -1 (Fehler) zurückgegeben
