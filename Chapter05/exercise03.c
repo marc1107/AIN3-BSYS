@@ -24,6 +24,7 @@ int main(int argc, char *argv[])
 		// parent goes down this path (main)
 		signal(SIGINT, goodbye);
 		sleep(1);
+		//printf("goodbye\n");
 	}
 	return 0;
 }
