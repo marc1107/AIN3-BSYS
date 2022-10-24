@@ -9,10 +9,10 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
     int megabytes = atoi(argv[1]);
-    int bytes = megabytes * pow(10, 6);
-    int arrayLength = bytes / sizeof(int);
+    int bytes = megabytes * 1024 * 1024;
+    int arrayLength = (int) (bytes / sizeof(int));
     int runtime = atoi(argv[2]);
-    int* array = malloc(arrayLength); // Jeder Integer nimmt 4 Byte Platz
+    int* array = malloc(bytes); // Jeder Integer nimmt 4 Byte Platz
     clock_t start = clock();
 
     if (array <= 0) {
@@ -22,15 +22,14 @@ int main(int argc, char* argv[]) {
 
     while(1)
     {
-        if ((clock() - start) / CLOCKS_PER_SEC >= runtime)
+        if ((double)(clock() - start) / CLOCKS_PER_SEC >= runtime)
         {
             break;
         }
         
         for (size_t i = 0; i < arrayLength; i++)
         {
-            int a = array[i];
-            //array[i] = 1;
+            array[i] = 1;
         }
     }
 
