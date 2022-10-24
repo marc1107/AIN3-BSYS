@@ -8,8 +8,7 @@ int main(int argc, char* argv[]) {
         printf("Falsches Eingabeformat\n");
         exit(1);
     }
-    int megabytes = atoi(argv[1]);
-    int bytes = megabytes * 1024 * 1024;
+    int bytes = atoi(argv[1]) * 1024 * 1024;
     int arrayLength = (int) (bytes / sizeof(int));
     int runtime = atoi(argv[2]);
     int* array = malloc(bytes); // Jeder Integer nimmt 4 Byte Platz
@@ -33,6 +32,7 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    free(array);
     printf("Programm beendet\n");
 
     return 0;
