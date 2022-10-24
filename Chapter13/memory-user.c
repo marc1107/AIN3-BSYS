@@ -4,6 +4,8 @@
 #include <time.h>
 
 int main(int argc, char* argv[]) {
+    printf("Pid: %d\n", getpid());
+
     if (argc < 3) {
         printf("Falsches Eingabeformat\n");
         exit(1);
