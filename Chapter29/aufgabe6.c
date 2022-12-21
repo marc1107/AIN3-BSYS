@@ -42,7 +42,7 @@ hash_t H;
 void* worker(void* arg)
 {
     // printf("\nThreadID: %d\n\n", (int) arg);
-    for (size_t i = 0; i < 1000; i++) // wird hier auf 1000001 erhöht, kommt anstatt 4000004 trotzdem 4000000 raus
+    for (size_t i = 0; i < 1000000; i++) // wird hier auf 1000001 erhöht, kommt anstatt 4000004 trotzdem 4000000 raus
     {
         //Pthread_mutex_lock(&L.lock);
         Hash_Insert(&H, i);
