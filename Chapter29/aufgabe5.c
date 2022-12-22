@@ -63,8 +63,8 @@ int main(int argc, char const *argv[])
     Pthread_join(p3, NULL);
     Pthread_join(p4, NULL);
     long int end = gettime();
-    long int time_needed = end - start;
-    printf("4 Threads:\nTime needed (microsec): %li\n", time_needed);
+    long int time_needed = (end - start) / 1000;
+    printf("4 Threads:\nTime needed: %li ms\n", time_needed);
     
 
     Hash_Init(&H);
@@ -72,7 +72,7 @@ int main(int argc, char const *argv[])
     Pthread_create(&p5, NULL, worker, (void *) 1000000);
     Pthread_join(p5, NULL);
     end = gettime();
-    time_needed = end - start;
-    printf("\n1 Thread:\nTime needed (microsec): %li\n", time_needed);
+    time_needed = (end - start) / 1000;
+    printf("\n1 Thread:\nTime needed: %li ms\n", time_needed);
     return 0;
 }
